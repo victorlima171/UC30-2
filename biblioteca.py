@@ -1,28 +1,82 @@
-#SISTEMA DE GESTÂO DE BIBLIOTECA
+ 
 
-#Dicionario p/ armanezar os livros
-catalago = {}
+# Dicionário p/ armazenar os livros
+catalogo = {}
 
-#Dicionario p/ armanezar os emprestimos ativos
-emprestimoAtivos = {}
+# Dicionário p/ armazenar os empréstimos ativos 
+emprestimosAtivos = {}
 
-#lista p/ armazenar o historico de transição
-historico = {}
+# Lista p/ armazenar o histórico de transição 
+histórico = []
 
-#Função: Adicionar livro
+# Função: Adicionar livro
 
 def adicionarLivro(codigo, titulo, autor, quantidade):
     if codigo in catalogo:
-        print(f"Erro: livro com codigo {codigo} já existe")
+        print(f"Erro: Livro com código {codigo} já existe")
         return False
     
-catalago[codigo] = {
-    "titulo": titulo,
-    "autor": autor,
-    "quantidade": quantidade 
-}
+    catalogo[codigo] = {
+        "titulo": titulo,
+        "autor": autor,
+        "quantidade": quantidade
+    }
 
-print(f"Livro '{titulo}' adicionado com sucesso")
-return True
+    print(f"Livro '{titulo}' adicionado com sucesso")
+    return True
 
-adicionarLivro("1001", "Codigo Limpo", "Robert Martin", 2)z
+adicionarLivro("L001", "Código Limpo", "Robert Martin", 2)
+
+#FUNÇÃO: EMPRESTAR LIVRO
+
+def empresta_livro(codigo, nome_aluno):
+
+    #VALIDAÇÃO 1: Livro existe no catálogo?
+    if codigo not in catalogo:
+        print(f"Erro: Livro com código {codigo} não encontrado!")
+        return False
+    
+    #VALIDAÇÃO 2: Há quantidade disponível?
+    if catalogo[codigo]["quantidade"] <= 0:
+        print(f"Erro: '{catalogo[codigo]['titulo']}' não está disponível!")
+        return False
+    
+    #VALIDAÇÃO 3: Aluno já pegou 2 livros?
+    livros_do_aluno = conta_livros_aluno(nome_aluno)
+    if livros_do_aluno >= 2:
+        print(f"Erro: {nome_aluno} já pegou 2 livros (limite máximo)!")
+        return False 
+    
+    #VALIDAÇÃO 4: Aluno já pegou este livro?
+    if codigo in emprestimosAtivos and nome_aluno in emprestimosAtivos[codigo]:
+        print(f"Erro: {nome_aluno} já pegou este livro!")
+        return False 
+    
+
+    if codigo not in emprestimosAtivos:
+        emprestimosAtivos[codigo] = []
+
+    # Adiciona o aluno à lista de quem pegou este livro
+    emprestimosAtivos[codigo].append(nome_aluno)
+
+    # Diminui a quantidade disponível
+    catalogo[codigo]["quantidade"] -= 1
+
+    #Registra no histórico
+    historico.append({
+        "tipo": "emprestimo",
+        "codigo": codigo,
+        "titulo": catalogo[codigo]["titulo"],
+
+        if codigo not in emprestimoAtivo:
+           emprestimosAtivos[codigo] = []
+
+        # Adiciona o aluno à lista de quem pegou este livro
+        emprestimosAtivos[codigo].append(nome_aluno)
+
+        # Diminui a quantidade disponível
+        catalogo[codigo]["quantidade"] -= 1
+
+        # Registra no 
+        
+    })
