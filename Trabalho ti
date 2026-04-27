@@ -1,0 +1,67 @@
+# EcoMar 
+
+# Tipos de resíduos
+residuos = {
+    "1": "Plástico",
+    "2": "Vidro",
+    "3": "Metal"
+}
+
+# Lista de registros
+coletas = []
+
+
+def registrar():
+    nome = input("Nome: ")
+    praia = input("Praia: ")
+
+    print("\nTipos:")
+    for cod, tipo in residuos.items():
+        print(f"[{cod}] {tipo}")
+
+    op = input("Escolha: ")
+
+    if op not in residuos:
+        print("Opção inválida")
+        return
+
+    try:
+        kg = float(input("Peso (kg): "))
+    except:
+        print("Peso inválido")
+        return
+
+    tipo = residuos[op]
+
+    coletas.append((nome, praia, tipo, kg))
+
+    print("\nColeta registrada com sucesso!")
+
+
+def relatorio():
+    print("\n--- RELATÓRIO ---")
+
+    total_kg = 0
+    for c in coletas:
+        print(f"{c[0]} - {c[1]} - {c[2]} - {c[3]}kg")
+        total_kg += c[3]
+
+    print("Total coletado:", total_kg, "kg")
+
+
+# Menu
+while True:
+    print("\n1- Registrar coleta")
+    print("2- Relatório")
+    print("3- Sair")
+
+    op = input("Opção: ")
+
+    if op == "1":
+        registrar()
+    elif op == "2":
+        relatorio()
+    elif op == "3":
+        break
+    else:
+        print("Opção inválida!")
